@@ -6,10 +6,11 @@
    Summary of methods in ImageEditor
    =>There are five ways you can create a new ImageEditor: you can give it ...
        • an existing PImage,
-       • a filename (which will load this file), or
-       • a width & height (which will create a blank, black image)
-       • a width & height & color (which will create a blank image with the color)
+       • a filename (which will load this graphics file),
+       • a width & height (which will create a blank image),
+       • a width & height & color (which will create a blank image with the color), or
        • an (x, y, w, h) rectangle, which will copy the contents of the current window into a new ImageEditor.
+       
      For example, you might say:
        ImageEditor editor = new ImageEditor("picture.jpg");
        or
@@ -20,7 +21,7 @@
   =>You can ask the ImageEditor to resize the main window to the size of this picture, or a multiple of the size of the picture:
     For example, if the image is (320 x 240) you might say
         editor.resizeWindowToImage();  // this would make the window be (320 x 240)
-        or
+          or
         editor.resizeWindowToImage(2,1); // this would make the window be (640 x 240)
   
   =>You can have the ImageEditor draw its image onto the main window with its upper-left corner at a specific coordinate:
@@ -31,6 +32,7 @@
     draw while you are in this mode.
         editor.startEditing();
         editor.stopEditing();
+    (I suggest you indent your code between start and stop.)    
     You can also ask whether it is in "Editing Mode."
         if (editor.isEditing())
             println("In editing mode.");
@@ -56,6 +58,7 @@
        •PImage imageCopy = editor.getImage();
 
 */
+//-------------------------------------------------------------- Class starts here!
 class ImageEditor
 {
   int myWidth, myHeight, myNumPixels;
@@ -93,9 +96,11 @@ class ImageEditor
   ImageEditor(int width, int height, color c)
   {
      this(width,height);
+     startEditing();
      for (int x = 0; x<width; x++)
        for (int y = 0; y<height; y++)
          setColorAt(c,x,y);
+     stopEditing();
   }
   /*
   * creates an ImageEditor of specified (w, h) that is filled with content from the screen,
